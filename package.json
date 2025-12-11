@@ -1,0 +1,27 @@
+{
+  "name": "gateway_backend",
+  "version": "1.0.0",
+  "description": "Backend for Gateway App (Node + Express + SQL)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/it-is-athi/gateway_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/it-is-athi/gateway_backend/issues"
+  },
+  "homepage": "https://github.com/it-is-athi/gateway_backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
+    "sqlite3": "^5.1.7"
+  }
+}
