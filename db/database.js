@@ -48,14 +48,19 @@ db.serialize(() => {
     )`);
 
     // --- SEEDING: Default Admin ---
-    // We insert 'OR IGNORE' so we don't create duplicates if you restart the server.
-    const insertUser = db.prepare("INSERT OR IGNORE INTO users (username, api_key, role, credits) VALUES (?, ?, ?, ?)");
-    insertUser.run("admin", "admin-key-123", "admin", 999); // Infinite power!
-    insertUser.run("athi", "member-key-456", "member", 100); // Standard user
-    insertUser.finalize();
+    // Check if users table is empty before inserting
+    db.get("SELECT count(*) as count FROM users", (err, row) => {
+        if (row.count === 0) {
+            console.log("Seeding default users...");
+            const insertUser = db.prepare("INSERT INTO users (username, api_key, role, credits) VALUES (?, ?, ?, ?)");
+            insertUser.run("admin", "admin-key-123", "admin", 999); // Infinite power!
+            insertUser.run("athi", "member-key-456", "member", 100); // Standard user
+            insertUser.finalize();
+        }
+    });
 
     // --- SEEDING: Default Rules ---
-    // These are the exact rules from the challenge description.
+    // Check if rules table is empty before inserting
     db.get("SELECT count(*) as count FROM rules", (err, row) => {
         if (row.count === 0) {
             console.log("Seeding default rules...");
