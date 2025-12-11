@@ -16,6 +16,7 @@ router.post('/commands', commandController.processCommand);
 // User Routes
 router.get('/me', userController.getMe);
 router.get('/my-history', userController.getMyHistory);
+router.get('/audit-logs', userController.getAllLogs);
 
 // Admin Routes
 router.get('/rules', ruleController.getRules);

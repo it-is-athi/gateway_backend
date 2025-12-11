@@ -62,3 +62,22 @@ exports.createUser = (req, res) => {
         }
     );
 };
+
+exports.getAllLogs = (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ error: "Admins only" });
+    }
+
+    // Join with Users table so we see WHO ran the command
+    const query = `
+        SELECT audit_logs.*, users.username 
+        FROM audit_logs 
+        LEFT JOIN users ON audit_logs.user_id = users.id 
+        ORDER BY timestamp DESC
+    `;
+
+    db.all(query, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: "Database error" });
+        res.json(rows);
+    });
+};
